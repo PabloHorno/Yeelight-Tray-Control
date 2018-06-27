@@ -15,8 +15,24 @@ namespace Yeelight
 {
     public partial class Form1 : Form
     {
-
+        const string ipAdress = "192.168.1.4";
         private bool estado = false;
+        private int _brillo = 0;
+        public int Brillo {
+            get { return _brillo; }
+
+            set
+            {
+                if (value == 0)
+                    value++;
+                _brillo = value;
+
+                TcpClient socket = new TcpClient();
+                socket.Connect(ipAdress, 55443);
+                socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_bright\",\"params\":[" + _brillo.ToString() + ", \"smooth\",500]}\r\n"));
+                socket.Close();
+            }
+        }
         public Form1()
         {
             InitializeComponent();
@@ -27,6 +43,10 @@ namespace Yeelight
             ApagarBombilla();
             this.Hide();
             this.WindowState = FormWindowState.Minimized;
+        }
+        ~Form1()
+        {
+            ApagarBombilla();
         }
 
         private void PorcentajeToolStripMenuItem_DragLeave(object sender, EventArgs e)
@@ -51,22 +71,15 @@ namespace Yeelight
         private void ApagarBombilla()
         {
             TcpClient socket = new TcpClient();
-            socket.Connect("192.168.1.5", 55443);
+            socket.Connect(ipAdress, 55443);
             socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"off\", \"smooth\",500]}\r\n"));
             socket.Close();
         }
         private void EncenderBombilla()
         {
             TcpClient socket = new TcpClient();
-            socket.Connect("192.168.1.5", 55443);
+            socket.Connect(ipAdress, 55443);
             socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\",500]}\r\n"));
-            socket.Close();
-        }
-        private void SetBrillo(Int32 brillo)
-        {
-            TcpClient socket = new TcpClient();
-            socket.Connect("192.168.1.5", 55443);
-            socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_bright\",\"params\":["+brillo.ToString()+", \"smooth\",500]}\r\n"));
             socket.Close();
         }
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -110,8 +123,8 @@ namespace Yeelight
         }
 
         private void porcentajeToolStripMenuItem_Click(object sender, EventArgs e)
-        { 
-            SetBrillo((sender as TrackBarMenuItem).trackBar.Value*10);
+        {
+            this.Brillo = (sender as TrackBarMenuItem).trackBar.Value * 10;
         }
     }
 }
