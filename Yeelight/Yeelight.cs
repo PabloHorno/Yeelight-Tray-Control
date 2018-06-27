@@ -9,34 +9,66 @@ namespace Yeelight
 {
     class Yeelight
     {
-        private TcpClient Socket = new TcpClient();
+        private TcpClient socket = new TcpClient();
         private String ipAdress = "";
-        
-        public Yeelight(string ipAdress)
+        public bool state = false;
+
+        public Yeelight(string ipAdress, bool defaultState = false)
         {
             this.ipAdress = ipAdress;
+            if (defaultState)
+                this.TurnOn();
+            else
+                this.TurnOff();
         }
-        private int _brillo;
-        public int Brillo {
-            get { return _brillo; }
 
-            set {
+        private int _Dim;
+        public int Dim
+        {
+            get { return _Dim; }
+
+            set
+            {
                 if (value == 0)
                     value++;
+                _Dim = value;
 
-                Socket = new TcpClient();
-                Socket.Connect(ipAdress, 55443);
-                Socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_bright\",\"params\":[" + _brillo.ToString() + ", \"smooth\",500]}\r\n"));
-                Socket.Close();
+                socket = new TcpClient();
+                socket.Connect(ipAdress, 55443);
+                socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_bright\",\"params\":[" + _Dim.ToString() + ", \"smooth\",500]}\r\n"));
+                socket.Close();
             }
         }
 
-        public void Apagar()
+        public void TurnOff()
         {
-        };
-        public void Encender()
+            socket = new TcpClient();
+            try
+            {
+                socket.Connect(ipAdress, 55443);
+                socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"off\", \"smooth\",500]}\r\n"));
+                socket.Close();
+                state = false;
+
+            }
+            catch (Exception e)
+            { }
+        }
+
+        public void TurnOn()
         {
-        };
+            try
+            {
+                socket = new TcpClient();
+                socket.Connect(ipAdress, 55443);
+                socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\",500]}\r\n"));
+                socket.Close();
+                state = true;
+
+            }
+            catch (Exception e)
+            { }
+        }
 
     }
 }

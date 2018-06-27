@@ -33,7 +33,7 @@
             this.Luz = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.porcentajeToolStripMenuItem = new Yeelight.Form1.TrackBarMenuItem();
+            this.porcentajeToolStripMenuItem = new Form1.TrackBarMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 

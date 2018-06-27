@@ -15,24 +15,7 @@ namespace Yeelight
 {
     public partial class Form1 : Form
     {
-        const string ipAdress = "192.168.1.4";
-        private bool estado = false;
-        private int _brillo = 0;
-        public int Brillo {
-            get { return _brillo; }
-
-            set
-            {
-                if (value == 0)
-                    value++;
-                _brillo = value;
-
-                TcpClient socket = new TcpClient();
-                socket.Connect(ipAdress, 55443);
-                socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_bright\",\"params\":[" + _brillo.ToString() + ", \"smooth\",500]}\r\n"));
-                socket.Close();
-            }
-        }
+        Yeelight yeelight = new Yeelight("192.168.1.4");
         public Form1()
         {
             InitializeComponent();
@@ -40,13 +23,12 @@ namespace Yeelight
             this.Luz.MouseClick += NotifyIcon1_MouseClick;
             Luz.ContextMenuStrip = contextMenuStrip1;
             this.porcentajeToolStripMenuItem.DragLeave += PorcentajeToolStripMenuItem_DragLeave;
-            ApagarBombilla();
             this.Hide();
             this.WindowState = FormWindowState.Minimized;
         }
         ~Form1()
         {
-            ApagarBombilla();
+            yeelight.TurnOff();
         }
 
         private void PorcentajeToolStripMenuItem_DragLeave(object sender, EventArgs e)
@@ -67,36 +49,22 @@ namespace Yeelight
                 Luz.Visible = false;
             }
         }
-
-        private void ApagarBombilla()
-        {
-            TcpClient socket = new TcpClient();
-            socket.Connect(ipAdress, 55443);
-            socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"off\", \"smooth\",500]}\r\n"));
-            socket.Close();
-        }
-        private void EncenderBombilla()
-        {
-            TcpClient socket = new TcpClient();
-            socket.Connect(ipAdress, 55443);
-            socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\",500]}\r\n"));
-            socket.Close();
-        }
+        
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (estado)
+
+            if (yeelight.state)
             {
                 Luz.Icon = new Icon("icon_off.ico");
                 Luz.Text = "Luz apagada";
-                ApagarBombilla();
+                yeelight.TurnOff();
             }
             else
             {
                 Luz.Icon = new Icon("icon_on.ico");
                 Luz.Text = "Luz encendida";
-                EncenderBombilla();
+                yeelight.TurnOn();
             }
-            estado = !estado;
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -124,7 +92,7 @@ namespace Yeelight
 
         private void porcentajeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Brillo = (sender as TrackBarMenuItem).trackBar.Value * 10;
+            yeelight.Dim = (sender as TrackBarMenuItem).trackBar.Value * 10;
         }
     }
 }
