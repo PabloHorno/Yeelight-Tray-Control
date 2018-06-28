@@ -1,13 +1,14 @@
 # Yeelight Control in tray (Notification Panel)
 
-One Paragraph of project description goes her
+A simple Yeelight control with which you can turn off, on and dim a Yeelight from the notification panel in windows.
 
-![on](http://url/to/img.png)
-![off](http://url/to/img.png)
-![dim](http://url/to/img.png)
+![on](https://imgur.com/a/s1JPOC4.png)
+![off](https://imgur.com/Ao5Tm06.png)
+![dim](https://imgur.com/MQ8nCnj.png)
+
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+For this first version only one Yeelight can be controlled, and the local IP must be entered by hand in the constructor of the Yeelight class.
 
 ### Prerequisites
 
@@ -68,10 +69,6 @@ Add additional notes about how to deploy this on a live system
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
