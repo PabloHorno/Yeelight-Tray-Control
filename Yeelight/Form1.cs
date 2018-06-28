@@ -22,18 +22,19 @@ namespace Yeelight
             this.Resize += Form1_Resize;
             this.Luz.MouseClick += NotifyIcon1_MouseClick;
             Luz.ContextMenuStrip = contextMenuStrip1;
-            this.porcentajeToolStripMenuItem.DragLeave += PorcentajeToolStripMenuItem_DragLeave;
-            this.Hide();
+            this.porcentajeToolStripMenuItem.trackBar.Scroll += onTrackBarScroll;
             this.WindowState = FormWindowState.Minimized;
+            this.ShowInTaskbar = false;
+            this.Hide();
         }
         ~Form1()
         {
             yeelight.TurnOff();
         }
 
-        private void PorcentajeToolStripMenuItem_DragLeave(object sender, EventArgs e)
+        private void onTrackBarScroll(object sender, EventArgs e)
         {
-            MessageBox.Show((sender as TrackBar).Value.ToString());
+            yeelight.Dim = (sender as TrackBar).Value * 10;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -88,11 +89,6 @@ namespace Yeelight
             {
                 this.trackBar = this.Control as TrackBar;
             }
-        }
-
-        private void porcentajeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            yeelight.Dim = (sender as TrackBarMenuItem).trackBar.Value * 10;
         }
     }
 }

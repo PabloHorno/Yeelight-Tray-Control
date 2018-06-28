@@ -65,7 +65,6 @@
             this.porcentajeToolStripMenuItem.Name = "porcentajeToolStripMenuItem";
             this.porcentajeToolStripMenuItem.Size = new System.Drawing.Size(152, 45);
             this.porcentajeToolStripMenuItem.Text = "Porcentaje";
-            this.porcentajeToolStripMenuItem.Click += new System.EventHandler(this.porcentajeToolStripMenuItem_Click);
             // 
             // Form1
             // 
