@@ -28,6 +28,8 @@ namespace Yeelight
                 if (value == 0)
                     value++;
                 _Dim = value;
+                
+                if (this.state == false)  this.TurnOn();
 
                 socket = new TcpClient();
                 socket.Connect(ipAdress, 55443);
