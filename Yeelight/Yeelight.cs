@@ -13,13 +13,9 @@ namespace Yeelight
         private String ipAdress = "";
         public bool state = false;
 
-        public Yeelight(string ipAdress, bool defaultState = false)
+        public Yeelight(string ipAdress)
         {
             this.ipAdress = ipAdress;
-            if (defaultState)
-                this.TurnOn();
-            else
-                this.TurnOff();
         }
 
         private int _Dim;
@@ -42,17 +38,20 @@ namespace Yeelight
 
         public void TurnOff()
         {
-            socket = new TcpClient();
             try
             {
+                socket = new TcpClient();
                 socket.Connect(ipAdress, 55443);
                 socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"off\", \"smooth\",500]}\r\n"));
-                socket.Close();
                 state = false;
 
             }
             catch (Exception e)
-            { }
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message, "Error on turn Off");
+            }
+
+            socket.Close();
         }
 
         public void TurnOn()
@@ -62,12 +61,14 @@ namespace Yeelight
                 socket = new TcpClient();
                 socket.Connect(ipAdress, 55443);
                 socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\",500]}\r\n"));
-                socket.Close();
                 state = true;
 
             }
             catch (Exception e)
-            { }
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message, "Error on turn On");
+            }
+            socket.Close();
         }
 
     }

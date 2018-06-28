@@ -54,17 +54,20 @@ namespace Yeelight
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
+            Luz.Icon = new Icon("loading.ico");
+            Luz.Text = "Comunication in progress";
+
             if (yeelight.state)
             {
+                yeelight.TurnOff();
                 Luz.Icon = new Icon("icon_off.ico");
                 Luz.Text = "Light off";
-                yeelight.TurnOff();
             }
             else
             {
+                yeelight.TurnOn();
                 Luz.Icon = new Icon("icon_on.ico");
                 Luz.Text = "Light on";
-                yeelight.TurnOn();
             }
         }
 
