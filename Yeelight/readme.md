@@ -1,6 +1,6 @@
 ﻿# Yeelight Control in tray (Notification Panel)
 
-One Paragraph of project description goes here
+One Paragraph of project description goes her
 
 ## Getting Started
 
