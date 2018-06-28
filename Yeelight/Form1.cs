@@ -35,6 +35,9 @@ namespace Yeelight
         private void onTrackBarScroll(object sender, EventArgs e)
         {
             yeelight.Dim = (sender as TrackBar).Value * 10;
+                
+            Luz.Icon = new Icon("Icons/icon_on.ico");
+            Luz.Text = "Light on";
         }
 
         private void Form1_Resize(object sender, EventArgs e)
