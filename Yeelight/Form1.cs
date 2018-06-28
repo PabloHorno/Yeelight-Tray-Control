@@ -42,7 +42,7 @@ namespace Yeelight
             if (FormWindowState.Minimized == this.WindowState)
             {
                 Luz.Visible = true;
-                Luz.ShowBalloonTip(100, "Light"," ", ToolTipIcon.Info);
+                Luz.ShowBalloonTip(100, "Light", " ", ToolTipIcon.Info);
                 this.Hide();
             }
             else if (FormWindowState.Normal == this.WindowState)
@@ -50,24 +50,34 @@ namespace Yeelight
                 Luz.Visible = false;
             }
         }
-        
+
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
-            Luz.Icon = new Icon("loading.ico");
+            Luz.Icon = new Icon("Icons/loading.ico");
             Luz.Text = "Comunication in progress";
+            try
+            {
 
-            if (yeelight.state)
-            {
-                yeelight.TurnOff();
-                Luz.Icon = new Icon("icon_off.ico");
-                Luz.Text = "Light off";
+                if (yeelight.state)
+                {
+                    yeelight.TurnOff();
+                    Luz.Icon = new Icon("Icons/icon_off.ico");
+                    Luz.Text = "Light off";
+                }
+                else
+                {
+                    yeelight.TurnOn();
+                    Luz.Icon = new Icon("Icons/icon_on.ico");
+                    Luz.Text = "Light on";
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                yeelight.TurnOn();
-                Luz.Icon = new Icon("icon_on.ico");
-                Luz.Text = "Light on";
+                Luz.Icon = new Icon("Icons/sync_error.ico");
+                Luz.Text = "Error";
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 
@@ -77,7 +87,7 @@ namespace Yeelight
         }
         private void NotifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 Luz.ContextMenuStrip.Show();
             }

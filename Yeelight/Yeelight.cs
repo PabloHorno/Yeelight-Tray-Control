@@ -48,7 +48,7 @@ namespace Yeelight
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.Message, "Error on turn Off");
+                throw new TimeoutException($"Yeelight on ip: {ipAdress} couldn't be found");
             }
 
             socket.Close();
@@ -66,7 +66,7 @@ namespace Yeelight
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.Message, "Error on turn On");
+                throw new TimeoutException($"Yeelight on ip: {ipAdress} couldn't be found");
             }
             socket.Close();
         }
