@@ -12,69 +12,31 @@ For this first version only one Yeelight can be controlled, and the local IP mus
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Visual Studio
+Windows Forms
 
-```
-Give examples
-```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Download the repository and open de .sln with Visual Studio
 
-Say what the step will be
-
+First
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+Open Yeelight.sln
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+In solution Explorer go to Form1.cs and in line 18 change the IP with your own Yeelight IP.
 ```
-Give an example
+        Yeelight yeelight = new Yeelight("192.168.1.4");
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Build and go.
 
 ## Authors
 
 * **Pablo Horno** - *Initial work* - [PabloHorno](https://github.com/PabloHorno)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/PabloHorno/Yeelight-Tray-Control/graphs/contributors) who participated in this project.
 
 ## License
 
@@ -82,6 +44,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* To thoes one who will download and try my program ;)
