@@ -40,7 +40,7 @@
             // Luz
             // 
             this.Luz.Icon = ((System.Drawing.Icon)(resources.GetObject("Luz.Icon")));
-            this.Luz.Text = "Luz";
+            this.Luz.Text = "Light";
             this.Luz.Visible = true;
             this.Luz.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
@@ -57,7 +57,7 @@
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Text = "Exit";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // porcentajeToolStripMenuItem

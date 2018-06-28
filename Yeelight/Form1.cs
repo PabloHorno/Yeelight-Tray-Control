@@ -42,7 +42,7 @@ namespace Yeelight
             if (FormWindowState.Minimized == this.WindowState)
             {
                 Luz.Visible = true;
-                Luz.ShowBalloonTip(100, "Luz"," ", ToolTipIcon.Info);
+                Luz.ShowBalloonTip(100, "Light"," ", ToolTipIcon.Info);
                 this.Hide();
             }
             else if (FormWindowState.Normal == this.WindowState)
@@ -57,13 +57,13 @@ namespace Yeelight
             if (yeelight.state)
             {
                 Luz.Icon = new Icon("icon_off.ico");
-                Luz.Text = "Luz apagada";
+                Luz.Text = "Light off";
                 yeelight.TurnOff();
             }
             else
             {
                 Luz.Icon = new Icon("icon_on.ico");
-                Luz.Text = "Luz encendida";
+                Luz.Text = "Light on";
                 yeelight.TurnOn();
             }
         }
