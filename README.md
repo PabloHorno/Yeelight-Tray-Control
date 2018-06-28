@@ -10,10 +10,17 @@ A simple Yeelight control with which you can turn off, on and dim a Yeelight fro
 
 For this first version only one Yeelight can be controlled, and the local IP must be entered by hand in the constructor of the Yeelight class.
 
+```
+Double click on icon toggle the light on and off
+```
+```
+Right click open Dim trackbar
+```
+
 ### Prerequisites
 
-Visual Studio
-Windows Forms
+*Visual Studio
+*Windows Forms
 
 
 ### Installing
