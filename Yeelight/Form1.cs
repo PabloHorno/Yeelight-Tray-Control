@@ -59,7 +59,7 @@ namespace Yeelight
             try
             {
 
-                if (yeelight.state)
+                if (yeelight.lightState == Yeelight.state.On)
                 {
                     yeelight.TurnOff();
                     Luz.Icon = new Icon("Icons/icon_off.ico");

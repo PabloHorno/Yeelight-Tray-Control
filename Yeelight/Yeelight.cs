@@ -11,7 +11,13 @@ namespace Yeelight
     {
         private TcpClient socket = new TcpClient();
         private String ipAdress = "";
-        public bool state = false;
+        public enum state
+        {
+            Unknow,
+            On,
+            Off
+        };
+        public state lightState = state.Unknow;
 
         public Yeelight(string ipAdress)
         {
@@ -29,7 +35,7 @@ namespace Yeelight
                     value++;
                 _Dim = value;
                 
-                if (this.state == false)  this.TurnOn();
+                if (this.lightState == state.Off)  this.TurnOn();
 
                 socket = new TcpClient();
                 socket.Connect(ipAdress, 55443);
@@ -45,7 +51,7 @@ namespace Yeelight
                 socket = new TcpClient();
                 socket.Connect(ipAdress, 55443);
                 socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"off\", \"smooth\",500]}\r\n"));
-                state = false;
+                lightState = state.Off;
 
             }
             catch (Exception e)
@@ -63,7 +69,7 @@ namespace Yeelight
                 socket = new TcpClient();
                 socket.Connect(ipAdress, 55443);
                 socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\",500]}\r\n"));
-                state = true;
+                lightState = state.On;
 
             }
             catch (Exception e)
