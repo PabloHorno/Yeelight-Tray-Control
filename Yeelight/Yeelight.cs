@@ -10,7 +10,7 @@ namespace Yeelight
     class Yeelight
     {
         private TcpClient socket = new TcpClient();
-        private String ipAdress = "";
+        public string ipAdress { get; private set; }
         public enum state
         {
             Unknow,

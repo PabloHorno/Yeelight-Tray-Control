@@ -42,7 +42,7 @@ namespace Yeelight
             if (FormWindowState.Minimized == this.WindowState)
             {
                 Luz.Visible = true;
-                Luz.ShowBalloonTip(100, "Light", " ", ToolTipIcon.Info);
+                Luz.ShowBalloonTip(100, "Tray control by Pablo Horno", $"ipAdress: {yeelight.ipAdress}", ToolTipIcon.Info);
                 this.Hide();
             }
             else if (FormWindowState.Normal == this.WindowState)
