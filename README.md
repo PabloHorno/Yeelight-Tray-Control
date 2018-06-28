@@ -2,7 +2,7 @@
 
 A simple Yeelight control with which you can turn off, on and dim a Yeelight from the notification panel in windows.
 
-![on](https://imgur.com/MQ8nCnj.png)
+![on](https://imgur.com/sgJn25V.png)
 ![off](https://imgur.com/Ao5Tm06.png)
 ![dim](https://imgur.com/MQ8nCnj.png)
 
