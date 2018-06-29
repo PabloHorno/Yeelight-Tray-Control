@@ -36,7 +36,7 @@ namespace Yeelight
         private void onTrackBarScroll(object sender, EventArgs e)
         {
             yeelight.Dim = (sender as TrackBar).Value * 10;
-                
+
             Luz.Icon = new Icon("Icons/icon_on.ico");
             Luz.Text = "Light on";
         }
@@ -59,7 +59,6 @@ namespace Yeelight
         {
             var thread = new Thread(() => AnimIcon(Luz));
             thread.Start();
-            Luz.Icon = new Icon("Icons/loading.ico");
             Luz.Text = "Comunication in progress";
             try
             {
@@ -80,11 +79,13 @@ namespace Yeelight
 
             catch (Exception ex)
             {
+                thread.Abort();
                 Luz.Icon = new Icon("Icons/sync_error.ico");
                 Luz.Text = "Error";
-                MessageBox.Show(ex.Message, "Error");
+                Luz.ShowBalloonTip(100, "Yeelight Error", ex.Message, ToolTipIcon.Info);
             }
-            thread.Abort();
+            if(thread.IsAlive)
+                thread.Abort();
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -111,8 +112,21 @@ namespace Yeelight
         }
         private static void AnimIcon(NotifyIcon Luz)
         {
-            var icon = new Icon("Icons/loading.ico");
-            Luz.Icon = icon;
+            Bitmap icon = new Bitmap("Icons/loading.ico");
+            try
+            {
+                while (true)
+                {
+                    icon.RotateFlip(RotateFlipType.Rotate90FlipNone);
+
+                    Luz.Icon = Icon.FromHandle(icon.GetHicon());
+                    Thread.Sleep(100);
+                }
+            }
+            catch (ThreadAbortException abortException)
+            {
+                Console.WriteLine(abortException.Message);
+            }
         }
     }
 }
