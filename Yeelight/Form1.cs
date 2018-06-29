@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms.Design;
+using System.Threading;
 
 namespace Yeelight
 {
@@ -56,7 +57,8 @@ namespace Yeelight
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-
+            var thread = new Thread(() => AnimIcon(Luz));
+            thread.Start();
             Luz.Icon = new Icon("Icons/loading.ico");
             Luz.Text = "Comunication in progress";
             try
@@ -82,6 +84,7 @@ namespace Yeelight
                 Luz.Text = "Error";
                 MessageBox.Show(ex.Message, "Error");
             }
+            thread.Abort();
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -105,6 +108,11 @@ namespace Yeelight
             {
                 this.trackBar = this.Control as TrackBar;
             }
+        }
+        private static void AnimIcon(NotifyIcon Luz)
+        {
+            var icon = new Icon("Icons/loading.ico");
+            Luz.Icon = icon;
         }
     }
 }
