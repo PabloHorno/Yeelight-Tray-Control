@@ -16,7 +16,8 @@ namespace Yeelight
 {
     public partial class Form1 : Form
     {
-        Yeelight yeelight = new Yeelight("192.168.1.4");
+        
+        Yeelight yeelight;
         public Form1()
         {
             InitializeComponent();
@@ -27,6 +28,7 @@ namespace Yeelight
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
             this.Hide();
+            yeelight = new Yeelight(Settings.IpAddress);            
         }
         ~Form1()
         {
@@ -118,6 +120,7 @@ namespace Yeelight
                 while (true)
                 {
                     icon.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    
 
                     Luz.Icon = Icon.FromHandle(icon.GetHicon());
                     Thread.Sleep(100);
