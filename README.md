@@ -32,7 +32,7 @@ First
 Open Yeelight.sln
 ```
 
-Open the file **settings.json** and set your IP in the ipAddress parameter.
+Open the file **settings.json** and set your Yeeligth's IP in the ipAddress parameter.
 ```
 {
   "ipAddress": "192.168.1.6"
