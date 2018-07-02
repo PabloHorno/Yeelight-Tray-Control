@@ -28,6 +28,12 @@ namespace Yeelight
             {
                return JsonConvert.DeserializeObject<SettingsContainer>(Json).IpAddress;
             }
+            set
+            {
+                var temp = JsonConvert.DeserializeObject<SettingsContainer>(Json);
+                temp.IpAddress = value;
+                Json = JsonConvert.SerializeObject(temp);
+            }
         }
     }
 
