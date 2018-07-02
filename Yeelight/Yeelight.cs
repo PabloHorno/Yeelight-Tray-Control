@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 namespace Yeelight
 {
-    class Yeelight
+    class YeelightBulb
     {
         private TcpClient socket = new TcpClient();
         public string ipAdress { get; private set; }
@@ -19,7 +19,7 @@ namespace Yeelight
         };
         public state lightState = state.Unknow;
 
-        public Yeelight(string ipAdress)
+        public YeelightBulb(string ipAdress)
         {
             this.ipAdress = ipAdress;
         }

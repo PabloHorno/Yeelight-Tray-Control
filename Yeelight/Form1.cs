@@ -16,7 +16,7 @@ namespace Yeelight
 {
     public partial class Form1 : Form
     {
-        Yeelight yeelight;
+        YeelightBulb yeelight;
         public Form1()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace Yeelight
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
             this.Hide();
-            yeelight = new Yeelight(Settings.IpAddress);            
+            yeelight = new YeelightBulb(Settings.IpAddress);            
         }
         ~Form1()
         {
@@ -64,7 +64,7 @@ namespace Yeelight
             try
             {
 
-                if (yeelight.lightState == Yeelight.state.On)
+                if (yeelight.lightState == YeelightBulb.state.On)
                 {
                     yeelight.TurnOff();
                     Luz.Icon = new Icon("Icons/icon_off.ico");
