@@ -32,9 +32,11 @@ First
 Open Yeelight.sln
 ```
 
-In solution Explorer go to Form1.cs and in line 18 change the IP with your own Yeelight IP.
+Open the file settings.json and set your IP in the ipAddress parameter.
 ```
-        Yeelight yeelight = new Yeelight("192.168.1.4");
+{
+  "ipAddress": "192.168.1.6"
+}
 ```
 
 Build and go.
