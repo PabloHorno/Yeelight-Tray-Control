@@ -16,7 +16,6 @@ namespace Yeelight
 {
     public partial class Form1 : Form
     {
-        
         Yeelight yeelight;
         public Form1()
         {
@@ -84,7 +83,7 @@ namespace Yeelight
                 thread.Abort();
                 Luz.Icon = new Icon("Icons/sync_error.ico");
                 Luz.Text = "Error";
-                Luz.ShowBalloonTip(100, "Yeelight Error", ex.Message, ToolTipIcon.Info);
+                Luz.ShowBalloonTip(100, "Yeelight Not Found", ex.Message, ToolTipIcon.Info);
             }
             if(thread.IsAlive)
                 thread.Abort();
