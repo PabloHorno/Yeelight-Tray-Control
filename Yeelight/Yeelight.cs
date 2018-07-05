@@ -28,7 +28,6 @@ namespace Yeelight
         public int Dim
         {
             get { return _Dim; }
-
             set
             {
                 if (value == 0)
@@ -37,40 +36,30 @@ namespace Yeelight
                 
                 if (this.lightState == state.Off)  this.TurnOn();
 
-                socket = new TcpClient();
-                socket.Connect(ipAdress, 55443);
-                socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_bright\",\"params\":[" + _Dim.ToString() + ", \"smooth\",500]}\r\n"));
-                socket.Close();
+                sendCommand("{\"id\":1,\"method\":\"set_bright\",\"params\":[" + _Dim.ToString() + ", \"smooth\",500]}\r\n");
             }
         }
 
         public void TurnOff()
         {
-            try
-            {
-                socket = new TcpClient();
-                socket.Connect(ipAdress, 55443);
-                socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"off\", \"smooth\",500]}\r\n"));
-                lightState = state.Off;
-
-            }
-            catch (Exception e)
-            {
-                throw new TimeoutException($"Yeelight on ip: {ipAdress} couldn't be found");
-            }
-
-            socket.Close();
+            sendCommand("{\"id\":1,\"method\":\"set_power\",\"params\":[\"off\", \"smooth\",500]}\r\n");
+            lightState = state.Off;
         }
 
         public void TurnOn()
         {
+            sendCommand("{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\",500]}\r\n");
+            lightState = state.On;
+        }
+        private void sendCommand(string cmd)
+        {
             try
             {
                 socket = new TcpClient();
+                socket.SendTimeout = 1000;
+                socket.NoDelay = true;
                 socket.Connect(ipAdress, 55443);
-                socket.Client.Send(Encoding.ASCII.GetBytes("{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\",500]}\r\n"));
-                lightState = state.On;
-
+                socket.Client.Send(Encoding.ASCII.GetBytes(cmd));
             }
             catch (Exception e)
             {
